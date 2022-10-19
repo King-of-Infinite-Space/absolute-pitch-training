@@ -1,0 +1,34 @@
+<label for="ins">Instrument</label>
+<div class="flex-r">
+  <select id="ins" bind:value={instrument}>
+    {#each instrumentGroups as group}
+      <optgroup label={group}>
+        {#each groupedInstruments[group] as ins}
+          <option value={ins}>
+            {ins.replaceAll("_", " ")}
+          </option>
+        {/each}
+      </optgroup>{/each}
+  </select>
+  <button
+    class="secondary"
+    on:click={() => {
+      instrument = getRandomInstrument()
+    }}>Random</button
+  >
+</div>
+
+<script lang="ts">
+import groupedInstruments, {
+  instrumentGroups,
+  getRandomInstrument,
+} from "../utils/instruments"
+
+export let instrument
+</script>
+
+<style>
+select {
+  flex-grow: 1;
+}
+</style>

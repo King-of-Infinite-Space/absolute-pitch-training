@@ -1,45 +1,43 @@
-<script lang="ts">
-  import svelteLogo from './assets/svelte.svg'
-  import Counter from './lib/Counter.svelte'
-</script>
+<main class="container">
+  <!-- pico class for centered viewport -->
+  <h4 class="heading">
+    Aboslute Pitch Training
+    <!-- <h5>a.k.a. frequency detection</h5> -->
+  </h4>
 
-<main>
-  <div>
-    <a href="https://vitejs.dev" target="_blank"> 
-      <img src="/vite.svg" class="logo" alt="Vite Logo" />
-    </a>
-    <a href="https://svelte.dev" target="_blank"> 
-      <img src={svelteLogo} class="logo svelte" alt="Svelte Logo" />
-    </a>
-  </div>
-  <h1>Vite + Svelte</h1>
-
-  <div class="card">
-    <Counter />
-  </div>
-
-  <p>
-    Check out <a href="https://github.com/sveltejs/kit#readme" target="_blank">SvelteKit</a>, the official Svelte app framework powered by Vite!
-  </p>
-
-  <p class="read-the-docs">
-    Click on the Vite and Svelte logos to learn more
-  </p>
+  <section>
+    <SelectInstrument bind:instrument />
+    <RangeSlider
+      bind:range={noteRange}
+      {maxRange}
+      waitingForAnswer={state === 1}
+    />
+  </section>
+  <section>
+    <PlayAndAnswer
+      testRange={noteRange}
+      {maxRange}
+      bind:instrument
+      bind:state
+    />
+  </section>
 </main>
 
+<script lang="ts">
+import SelectInstrument from "./components/1-Instrument.svelte"
+import RangeSlider from "./components/2-RangeSlider.svelte"
+import PlayAndAnswer from "./components/3-PlayAndAnswer.svelte"
+
+let instrument = "electric_piano_1"
+const maxRange = [13, 96]
+let noteRange = [37, 72]
+// let noteRange = [25, 84]
+// C1 = 1`1 = 13, B7 = 7`12 = 96
+// C2 = 2`1 = 25, B6 = 6`12 = 84
+// C3 = 3`1 = 37, B5 = 5`12 = 72
+let state = 0
+// 0 = start, 1 = waiting for anwer, 2 = answered
+</script>
+
 <style>
-  .logo {
-    height: 6em;
-    padding: 1.5em;
-    will-change: filter;
-  }
-  .logo:hover {
-    filter: drop-shadow(0 0 2em #646cffaa);
-  }
-  .logo.svelte:hover {
-    filter: drop-shadow(0 0 2em #ff3e00aa);
-  }
-  .read-the-docs {
-    color: #888;
-  }
 </style>
