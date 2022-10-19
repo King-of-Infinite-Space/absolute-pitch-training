@@ -30,36 +30,3 @@ button {
   width: auto;
   display: inline-block;
 }
-
-// /* override slider css */
-// /* https://simeydotme.github.io/svelte-range-slider-pips/#styling */
-.rangeSlider {
-  --range-handle-focus: #888;
-  // primay blue: OKHSL 229 94 57
-  --range-handle-inactive: var(--range-handle-focus);
-  --range-handle: var(--range-handle-focus);
-
-  > .rangeHandle {
-    > .rangeFloat {
-      // label of slider
-      opacity: 1;
-      // always visible
-      transform: translate(-50%, 150%) !important;
-      // put label below slider
-    }
-    > .rangeNub {
-      transform: scale(0.7) rotate(45deg) !important;
-      border-radius: 0 !important;
-      // rotated square
-    }
-  }
-}
-.rangeNub .targetNub {
-  color: var(--primary) !important;
-}
-// #range-slider {
-//   > .rangeHandle {
-//     > .rangeNub {
-//     }
-//   }
-// }

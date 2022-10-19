@@ -197,51 +197,12 @@ function labelClick(val) {
 }
 :global(.rangePips .pipVal) {
   transition: all 0.15s ease, font-weight 0s linear;
+  font-size: 0.8em;
 }
 :global(.rangePips .pip) {
   color: lightslategray;
   color: var(--pip-text);
   background-color: lightslategray;
   background-color: var(--pip);
-}
-:global(.rangePips .pip.selected) {
-  color: darkslategrey;
-  color: var(--pip-active-text);
-  background-color: darkslategrey;
-  background-color: var(--pip-active);
-}
-:global(.rangePips.hoverable:not(.disabled) .pip:hover) {
-  color: darkslategrey;
-  color: var(--pip-hover-text);
-  background-color: darkslategrey;
-  background-color: var(--pip-hover);
-}
-:global(.rangePips .pip.in-range) {
-  color: darkslategrey;
-  color: var(--pip-in-range-text);
-  background-color: darkslategrey;
-  background-color: var(--pip-in-range);
-}
-:global(.rangePips .pip.selected) {
-  height: 0.75em;
-}
-:global(.rangePips.vertical .pip.selected) {
-  height: 1px;
-  width: 0.75em;
-}
-:global(.rangePips .pip.selected .pipVal) {
-  font-weight: bold;
-  top: 0.75em;
-}
-:global(.rangePips.vertical .pip.selected .pipVal) {
-  top: 0;
-  left: 0.75em;
-}
-:global(.rangePips.hoverable:not(.disabled) .pip:not(.selected):hover) {
-  transition: none;
-}
-:global(.rangePips.hoverable:not(.disabled) .pip:not(.selected):hover .pipVal) {
-  transition: none;
-  font-weight: bold;
 }
 </style>
