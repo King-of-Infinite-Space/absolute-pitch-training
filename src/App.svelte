@@ -25,7 +25,7 @@
 
 <script lang="ts">
 import SelectInstrument from "./components/1-Instrument.svelte"
-import RangeSlider from "./components/2-RangeSlider.svelte"
+import RangeSlider from "./components/2-RangeSelection.svelte"
 import PlayAndAnswer from "./components/3-PlayAndAnswer.svelte"
 
 let instrument = "electric_piano_1"

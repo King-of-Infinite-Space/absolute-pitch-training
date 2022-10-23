@@ -10,12 +10,24 @@
     float
     first="label"
     last="label"
-    formatter={(value, index, percent) => numberToNotation(value)}
+    rest="label"
+    formatter={tickFormatter}
+    {handleFormatter}
     range
     hoverable={false}
     disabled={waitingForAnswer}
   />
 </div>
+
+<script lang="ts" context="module">
+export function handleFormatter(value, index, percent) {
+  return numberToNotation(value)
+}
+
+export function tickFormatter(value, index, percent) {
+  return value % 12 === 1 ? numberToNotation(value, "x`y") : ""
+}
+</script>
 
 <script lang="ts">
 import RangeSlider from "../lib/RangeSlider.svelte"
