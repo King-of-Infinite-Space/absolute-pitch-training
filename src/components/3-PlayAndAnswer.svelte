@@ -8,18 +8,23 @@
 <div class="wrapper">
   <div class="label">Your Answer</div>
   <RangeSlider
-    bind:values={range}
+    bind:values
+    bind:activeHandle
     min={maxRange[0]}
     max={maxRange[1]}
+    fixedIdx={1}
     pips
     pipstep={4}
     float
     first="label"
     last="label"
-    formatter={(value, index, percent) => numberToNotation(value)}
+    rest="label"
+    formatter={tickFormatter}
+    {handleFormatter}
     hoverable={false}
     pushy
     disabled={state === 0}
+    id="answer-slider"
   />
 </div>
 <div class="flex-c" id="confirm-wrapper">
@@ -27,14 +32,14 @@
     class="secondary outline"
     disabled={state === 0}
     on:click={() => {
-      range[0]--
+      values[0]--
     }}>-</button
   >
   <button
     class="secondary outline"
     disabled={state === 0}
     on:click={() => {
-      range[0]++
+      values[0]++
     }}>+</button
   >
   <button class="secondary" disabled={state === 0} on:click={playNote}
@@ -55,14 +60,10 @@
     </div>
   {/each}
   <div class="flex-c">
-    <div class={state === 2 && trialRecord.error === 0 ? "correct" : "hide"}>
-      Correct!
-    </div>
-    <div class={state === 2 && trialRecord.error != 0 ? "" : "hide"}>
+    <div class={state === 2 && error === 0 ? "correct" : "hide"}>Correct!</div>
+    <div class={state === 2 && error != 0 ? "" : "hide"}>
       Error =
-      <span class={trialRecord.error < 0 ? "negative" : "positive"}
-        >{errorStr}</span
-      >
+      <span class={error < 0 ? "negative" : "positive"}>{errorStr}</span>
     </div>
   </div>
 </div>
@@ -70,8 +71,8 @@
 <script lang="ts">
 import { onMount } from "svelte"
 import RangeSlider from "../lib/RangeSlider.svelte"
+import { handleFormatter, tickFormatter } from "./2-RangeSelection.svelte"
 import { numberToNotation } from "../utils/notation"
-import { getRandomInstrument } from "../utils/instruments"
 // C1 = 1`1 = 13, B7 = 7`12 = 96
 // C2 = 2`1 = 25, B6 = 6`12 = 84
 // A4 = 4`10 = 58
@@ -81,21 +82,21 @@ export let instrument
 export let state
 
 let player: HTMLAudioElement
-let range = [58]
+let values = [58]
+let activeHandle = 0
 let feedbacks = ["", ""]
 
-let trialRecord = {
-  noteNumber: null,
-  error: null,
-  repeats: 0,
-}
+let error = null
+let repeats = 0
+let currentNote = null
 
-$: errorStr =
-  trialRecord.error < 0 ? `${trialRecord.error}` : `+${trialRecord.error}`
+$: errorStr = error < 0 ? `${error}` : `+${error}`
+
+$: selectedNote = values[0]
 
 onMount(() => {
   player.onplay = () => {
-    trialRecord.repeats++
+    repeats++
   }
 })
 
@@ -106,39 +107,44 @@ function getSoundUrl(noteNumber: number, instrument: string) {
 }
 
 function playNote() {
-  player.src = getSoundUrl(trialRecord.noteNumber, instrument)
+  player.src = getSoundUrl(currentNote, instrument)
   player.play()
+  activeHandle = state === 2 ? 1 : 0
 }
 
 function playSelectedNote() {
-  player.src = getSoundUrl(range[0], instrument)
+  player.src = getSoundUrl(selectedNote, instrument)
   player.play()
+  activeHandle = 0
 }
 
 function playNewNote() {
   state = 1
-  trialRecord.repeats = 0
+  values = [selectedNote]
+  activeHandle = 0
+  repeats = 0
 
-  trialRecord.noteNumber = Math.floor(
+  currentNote = Math.floor(
     Math.random() * (testRange[1] - testRange[0]) + testRange[0]
   )
   playNote()
 }
 
 function confirmAnswer() {
-  // range.push(trialRecord.noteNumber)
-  trialRecord.error = range[0] - trialRecord.noteNumber
+  error = selectedNote - currentNote
   const record = {
-    target: numberToNotation(trialRecord.noteNumber, "x`y"),
-    answer: numberToNotation(range[0], "x`y"),
-    error: trialRecord.error,
-    repeats: trialRecord.repeats,
+    target: numberToNotation(currentNote, "x`y"),
+    answer: numberToNotation(selectedNote, "x`y"),
+    error: error,
+    repeats: repeats,
     datetime: new Date().toISOString(),
   }
   console.log(record)
-  feedbacks[0] = `Your answer = ${numberToNotation(range[0])}`
-  feedbacks[1] = `Correct answer = ${numberToNotation(trialRecord.noteNumber)}`
+  feedbacks[0] = `Your answer = ${numberToNotation(selectedNote)}`
+  feedbacks[1] = `Correct answer = ${numberToNotation(currentNote)}`
   state = 2
+  values = [selectedNote, currentNote]
+  activeHandle = 1
 }
 </script>
 
@@ -169,4 +175,7 @@ function confirmAnswer() {
   color: hsl(358, 87%, 58%);
 }
 /* primay blue: OKHSL 25/145/265 94 57 */
+:global(#answer-slider > .rangeHandle.fixed > *) {
+  background-color: var(--primary);
+}
 </style>

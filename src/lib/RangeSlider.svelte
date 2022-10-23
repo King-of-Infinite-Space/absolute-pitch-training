@@ -26,6 +26,7 @@
       class="rangeHandle"
       class:active={focus && activeHandle === index}
       class:press={handlePressed && activeHandle === index}
+      class:fixed={index === fixedIdx}
       data-handle={index}
       on:blur={sliderBlurHandle}
       on:focus={sliderFocusHandle}
@@ -125,6 +126,8 @@ export let float = false
 export let reversed = false
 export let hoverable = true
 export let disabled = false
+export let fixedIdx = -1
+export let activeHandle = values.length - 1
 
 // range pips / values props
 export let pips = false
@@ -154,7 +157,6 @@ let focus = false
 let handleActivated = false
 let handlePressed = false
 let keyboardActive = false
-let activeHandle = values.length - 1
 let startValue
 let previousValue
 
@@ -366,6 +368,10 @@ function getClosestHandle(clientPos) {
 
   let closest
 
+  if (fixedIdx > 0) {
+    return 1 - fixedIdx
+  }
+
   // if we have a range, and the handles are at the same
   // position, we want a simple check if the interaction
   // value is greater than return the second handle
@@ -424,6 +430,9 @@ function handleInteract(clientPos) {
  * @return {number} the value that was moved to (after alignment/clamping)
  **/
 function moveHandle(index, value) {
+  if (index === fixedIdx) {
+    return
+  }
   // align & clamp the value so we're not doing extra
   // calculation on an out-of-range value down below
   value = alignValueToStep(value)
