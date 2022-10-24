@@ -21,12 +21,16 @@
       bind:state
     />
   </section>
+  <section>
+    <Record />
+  </section>
 </main>
 
 <script lang="ts">
 import SelectInstrument from "./components/1-Instrument.svelte"
 import RangeSlider from "./components/2-RangeSelection.svelte"
 import PlayAndAnswer from "./components/3-PlayAndAnswer.svelte"
+import Record from "./components/4-Record.svelte"
 
 let instrument = "electric_piano_1"
 const maxRange = [13, 96]

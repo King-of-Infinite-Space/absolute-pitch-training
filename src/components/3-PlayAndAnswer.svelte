@@ -73,6 +73,7 @@ import { onMount } from "svelte"
 import RangeSlider from "../lib/RangeSlider.svelte"
 import { handleFormatter, tickFormatter } from "./2-RangeSelection.svelte"
 import { numberToNotation } from "../utils/notation"
+import { records } from "./stores"
 // C1 = 1`1 = 13, B7 = 7`12 = 96
 // C2 = 2`1 = 25, B6 = 6`12 = 84
 // A4 = 4`10 = 58
@@ -137,9 +138,9 @@ function confirmAnswer() {
     answer: numberToNotation(selectedNote, "x`y"),
     error: error,
     repeats: repeats,
-    datetime: new Date().toISOString(),
+    time: new Date().toISOString(),
   }
-  console.log(record)
+  records.update((records) => [record, ...records])
   feedbacks[0] = `Your answer = ${numberToNotation(selectedNote)}`
   feedbacks[1] = `Correct answer = ${numberToNotation(currentNote)}`
   state = 2
