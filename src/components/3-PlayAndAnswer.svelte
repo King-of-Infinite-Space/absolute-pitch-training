@@ -6,7 +6,7 @@
 </div>
 
 <div class="slider-wrapper mb15">
-  <div class="label">Your Answer</div>
+  <div class="label">Answer</div>
   <RangeSlider
     bind:values
     bind:activeHandle

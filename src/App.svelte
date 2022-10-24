@@ -1,7 +1,7 @@
 <main class="container">
   <!-- pico class for centered viewport -->
   <h4 class="heading">
-    Aboslute Pitch Training
+    Absolute Pitch Training
     <!-- <h5>a.k.a. frequency detection</h5> -->
   </h4>
 

@@ -25,7 +25,7 @@
         {#each $records as record}
           <tr>
             <td>{toLocalTimeStr(record.time)}</td>
-            <td>{record.error}</td>
+            <td>{`${record.error > 0 ? "+" : ""}${record.error}`}</td>
             <td>{record.answer}</td>
             <td>{record.target}</td>
             <td>{record.repeats}</td>
