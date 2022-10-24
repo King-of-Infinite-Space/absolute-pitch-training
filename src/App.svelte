@@ -5,25 +5,17 @@
     <!-- <h5>a.k.a. frequency detection</h5> -->
   </h4>
 
-  <section>
-    <SelectInstrument bind:instrument />
-    <RangeSlider
-      bind:range={noteRange}
-      {maxRange}
-      waitingForAnswer={state === 1}
-    />
-  </section>
-  <section>
-    <PlayAndAnswer
-      testRange={noteRange}
-      {maxRange}
-      bind:instrument
-      bind:state
-    />
-  </section>
-  <section>
-    <Record />
-  </section>
+  <SelectInstrument bind:instrument />
+
+  <RangeSlider
+    bind:range={noteRange}
+    {maxRange}
+    waitingForAnswer={state === 1}
+  />
+
+  <PlayAndAnswer testRange={noteRange} {maxRange} bind:instrument bind:state />
+
+  <Record />
 </main>
 
 <script lang="ts">
@@ -42,6 +34,3 @@ let noteRange = [37, 72]
 let state = 0
 // 0 = start, 1 = waiting for anwer, 2 = answered
 </script>
-
-<style>
-</style>

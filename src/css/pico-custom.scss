@@ -1,8 +1,29 @@
+// override pico
+:root {
+  --form-element-spacing-vertical: 0.6em;
+  --form-element-spacing-horizontal: 0.8em;
+}
 /* define some utility classes based on pico.css */
+
+.mb1 {
+  margin-bottom: var(--spacing);
+}
+.mb05 {
+  margin-bottom: calc(var(--spacing) * 0.5);
+}
+.mb15 {
+  margin-bottom: calc(var(--spacing) * 1.5);
+}
+.mb2 {
+  margin-bottom: calc(var(--spacing) * 2);
+}
+.m0 {
+  margin: 0;
+}
 
 .heading {
   text-align: center;
-  margin-top: var(--typography-spacing-vertical);
+  margin: calc(0.8 * var(--typography-spacing-vertical)) auto;
 }
 
 .label {
@@ -16,17 +37,23 @@
   display: flex;
   justify-content: right;
   > *:not(:last-child) {
-    margin-right: var(--spacing);
+    margin-right: var(--form-element-spacing-horizontal);
   }
 }
 .flex-c {
   display: flex;
   justify-content: center;
   > * {
-    margin: auto calc(var(--spacing) * 0.5);
+    margin-left: calc(var(--form-element-spacing-horizontal) * 0.5);
+    margin-right: calc(var(--form-element-spacing-horizontal) * 0.5);
   }
 }
 button {
   width: auto;
   display: inline-block;
+  white-space: nowrap;
+  margin-bottom: 0px;
+}
+select {
+  margin-bottom: 0px;
 }

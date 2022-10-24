@@ -1,5 +1,5 @@
 <label for="ins">Instrument</label>
-<div class="flex-r">
+<div class="flex-r mb1">
   <select id="ins" bind:value={instrument}>
     {#each instrumentGroups as group}
       <optgroup label={group}>

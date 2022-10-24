@@ -1,6 +1,6 @@
 <details>
   <summary>Record</summary>
-  <div class="flex-c">
+  <div class="flex-c mb05">
     <button
       class="secondary"
       on:click={exportRecord}
@@ -111,5 +111,12 @@ td {
   text-align: center;
   font-size: small;
   padding: calc(var(--spacing) / 2);
+}
+details[open] > summary {
+  margin-bottom: calc(0.5 * var(--spacing));
+}
+details {
+  padding-bottom: 0px;
+  border-bottom: 0px;
 }
 </style>

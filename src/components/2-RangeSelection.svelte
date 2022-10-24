@@ -1,4 +1,4 @@
-<div class="wrapper">
+<div class="wrapper mb2">
   <div class="label">Test range ({range[1] - range[0] + 1} notes)</div>
   <RangeSlider
     id="range-slider"

@@ -1,11 +1,11 @@
-<div class="flex-c">
+<div class="flex-c mb1">
   <button on:click={playNewNote} disabled={state === 1}>Play new note</button>
 </div>
-<div class="flex-c" id="player-wrapper">
+<div class="flex-c mb1">
   <audio controls src="" bind:this={player} />
 </div>
 
-<div class="wrapper">
+<div class="slider-wrapper mb15">
   <div class="label">Your Answer</div>
   <RangeSlider
     bind:values
@@ -28,34 +28,38 @@
   />
 </div>
 <div class="flex-c" id="confirm-wrapper">
-  <button
-    class="secondary outline"
-    disabled={state === 0}
-    on:click={() => {
-      values[0]--
-    }}>-</button
-  >
-  <button
-    class="secondary outline"
-    disabled={state === 0}
-    on:click={() => {
-      values[0]++
-    }}>+</button
-  >
-  <button class="secondary" disabled={state === 0} on:click={playNote}
-    >Play again</button
-  >
-  <button
-    class="secondary {state === 2 ? '' : 'hide'}"
-    on:click={playSelectedNote}>Play selected</button
-  >
-  <button class="contrast" disabled={state != 1} on:click={confirmAnswer}
-    >Confirm</button
-  >
+  <div class="flex-c mb1">
+    <button
+      class="secondary outline"
+      disabled={state === 0}
+      on:click={() => {
+        values[0]--
+      }}>-</button
+    >
+    <button
+      class="secondary outline"
+      disabled={state === 0}
+      on:click={() => {
+        values[0]++
+      }}>+</button
+    >
+  </div>
+  <div class="flex-c mb1">
+    <button class="secondary" disabled={state === 0} on:click={playNote}
+      >Play again</button
+    >
+    <button
+      class="secondary {state === 2 ? '' : 'hide'}"
+      on:click={playSelectedNote}>Play selected</button
+    >
+    <button class="contrast" disabled={state != 1} on:click={confirmAnswer}
+      >Confirm</button
+    >
+  </div>
 </div>
-<div id="feedback-wrapper">
+<div id="feedback-wrapper" class="mb1 {state === 2 ? '' : 'hide'}">
   {#each feedbacks as feedback}
-    <div class="flex-c {state === 2 ? '' : 'hide'}">
+    <div class="flex-c">
       {feedback}
     </div>
   {/each}
@@ -149,16 +153,16 @@ function confirmAnswer() {
 }
 </script>
 
-<style>
-.wrapper {
+<style lang="scss">
+.slider-wrapper {
   display: flow-root;
 }
-#player-wrapper {
-  margin-top: var(--spacing);
-}
 #confirm-wrapper {
-  margin-top: calc(1.5 * var(--spacing));
-  margin-bottom: var(--spacing);
+  flex-wrap: wrap;
+  > div {
+    margin-left: 0px;
+    margin-right: 0px;
+  }
 }
 #feedback-wrapper > div {
   margin-bottom: calc(0.25 * var(--spacing));
