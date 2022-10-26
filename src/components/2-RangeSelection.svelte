@@ -1,8 +1,10 @@
 <div class="wrapper mb2">
-  <div class="label">Range ({range[1] - range[0] + 1} notes)</div>
+  <div class="label">
+    Range ({$selectedRange[1] - $selectedRange[0] + 1} notes)
+  </div>
   <RangeSlider
     id="range-slider"
-    bind:values={range}
+    bind:values={$selectedRange}
     min={maxRange[0]}
     max={maxRange[1]}
     pips
@@ -32,9 +34,9 @@ export function tickFormatter(value, index, percent) {
 <script lang="ts">
 import RangeSlider from "../lib/RangeSlider.svelte"
 import { numberToNotation } from "../utils/notation"
+import { selectedRange } from "./stores"
 
 export let maxRange
-export let range
 export let waitingForAnswer
 </script>
 

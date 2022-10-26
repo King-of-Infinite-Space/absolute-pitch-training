@@ -1,6 +1,6 @@
 <label for="ins">Instrument</label>
 <div class="flex-r mb1">
-  <select id="ins" bind:value={instrument}>
+  <select id="ins" bind:value={$selectedInstrument}>
     {#each instrumentGroups as group}
       <optgroup label={group}>
         {#each groupedInstruments[group] as ins}
@@ -13,7 +13,7 @@
   <button
     class="secondary"
     on:click={() => {
-      instrument = getRandomInstrument()
+      selectedInstrument.set(getRandomInstrument())
     }}>Random</button
   >
 </div>
@@ -24,7 +24,7 @@ import groupedInstruments, {
   getRandomInstrument,
 } from "../utils/instruments"
 
-export let instrument
+import { selectedInstrument } from "./stores"
 </script>
 
 <style>

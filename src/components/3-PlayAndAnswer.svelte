@@ -77,13 +77,11 @@ import { onMount } from "svelte"
 import RangeSlider from "../lib/RangeSlider.svelte"
 import { handleFormatter, tickFormatter } from "./2-RangeSelection.svelte"
 import { numberToNotation } from "../utils/notation"
-import { records } from "./stores"
+import { records, selectedInstrument, selectedRange } from "./stores"
 // C1 = 1`1 = 13, B7 = 7`12 = 96
 // C2 = 2`1 = 25, B6 = 6`12 = 84
 // A4 = 4`10 = 58
 export let maxRange
-export let testRange
-export let instrument
 export let state
 
 let player: HTMLAudioElement
@@ -112,13 +110,13 @@ function getSoundUrl(noteNumber: number, instrument: string) {
 }
 
 function playNote() {
-  player.src = getSoundUrl(currentNote, instrument)
+  player.src = getSoundUrl(currentNote, $selectedInstrument)
   player.play()
   activeHandle = state === 2 ? 1 : 0
 }
 
 function playSelectedNote() {
-  player.src = getSoundUrl(selectedNote, instrument)
+  player.src = getSoundUrl(selectedNote, $selectedInstrument)
   player.play()
   activeHandle = 0
 }
@@ -130,7 +128,7 @@ function playNewNote() {
   repeats = 0
 
   currentNote = Math.floor(
-    Math.random() * (testRange[1] - testRange[0]) + testRange[0]
+    Math.random() * ($selectedRange[1] - $selectedRange[0]) + $selectedRange[0]
   )
   playNote()
 }
