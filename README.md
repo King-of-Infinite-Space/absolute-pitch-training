@@ -1,48 +1,42 @@
-# Svelte + TS + Vite
+### Absolute Pitch Training
 
-This template should help get you started developing with Svelte and TypeScript in Vite.
+#### Usage
 
-## Recommended IDE Setup
+Listen to a note --> Input your answer --> Receive feedback
 
-[VS Code](https://code.visualstudio.com/) + [Svelte](https://marketplace.visualstudio.com/items?itemName=svelte.svelte-vscode).
+Training record is saved in `localStorage`.
 
-## Need an official Svelte framework?
+To avoid the reliance on short-term memory and relative pitch, it is recommended to train one note at a time or listen to something else in between.
 
-Check out [SvelteKit](https://github.com/sveltejs/kit#readme), which is also powered by Vite. Deploy anywhere with its serverless-first approach and adapt to various platforms, with out of the box support for TypeScript, SCSS, and Less, and easily-added support for mdsvex, GraphQL, PostCSS, Tailwind CSS, and more.
+#### Intro
 
-## Technical considerations
+Absolute pitch refers to the ability to name a note without external reference. (This effectively means recognizing the fundamental frequency of a sound.) This ability was traditionally thought to depend on genetic disposition and early musical training. Recent experiments [1][2] have shown that some adults *can* develop this skill. (The question remains whether they can achieve the same level of performance.)
 
-**Why use this over SvelteKit?**
+Equal temperament means fundamental frequencies of notes are equally spaced on logarithmic scale. However, this relation is not represented intuitively under western music notation. This project uses a more "scientific" notation based on numbers to hopefully aid learning.
 
-- It brings its own routing solution which might not be preferable for some users.
-- It is first and foremost a framework that just happens to use Vite under the hood, not a Vite app.
-  `vite dev` and `vite build` wouldn't work in a SvelteKit environment, for example.
+<details>
+    <summary><i>References</i></summary>
 
-This template contains as little as possible to get started with Vite + TypeScript + Svelte, while taking into account the developer experience with regards to HMR and intellisense. It demonstrates capabilities on par with the other `create-vite` templates and is a good starting point for beginners dipping their toes into a Vite + Svelte project.
+[0] [Why Rick Beato is Wrong About Perfect Pitch - Sam Leak - YouTube](https://www.youtube.com/watch?v=HORXRnOSC20&t=40s)
 
-Should you later need the extended capabilities and extensibility provided by SvelteKit, the template has been structured similarly to SvelteKit so that it is easy to migrate.
+[1] Wong, Y. K., Lui, K. F. H., Yip, K. H. M., & Wong, A. C.-N. (2020). Is it impossible to acquire absolute pitch in adulthood? Attention, Perception, & Psychophysics, 82(3), 1407–1430. https://doi.org/10.3758/s13414-019-01869-3
 
-**Why `global.d.ts` instead of `compilerOptions.types` inside `jsconfig.json` or `tsconfig.json`?**
+[2] Hedger, S. C. V., Heald, S. L. M., & Nusbaum, H. C. (2019). Absolute pitch can be learned by some adults. PLOS ONE, 14(9), e0223047. https://doi.org/10.1371/journal.pone.0223047
 
-Setting `compilerOptions.types` shuts out all other types not explicitly listed in the configuration. Using triple-slash references keeps the default TypeScript setting of accepting type information from the entire workspace, while also adding `svelte` and `vite/client` type information.
+[3] Bermudez, P., & Zatorre, R. J. (2009). A Distribution of Absolute Pitch Ability as Revealed by Computerized Testing. Music Perception, 27(2), 89–101. https://doi.org/10.1525/mp.2009.27.2.89
 
-**Why include `.vscode/extensions.json`?**
+</details>
 
-Other templates indirectly recommend extensions via the README, but this file allows VS Code to prompt the user to install the recommended extension upon opening the project.
 
-**Why enable `allowJs` in the TS template?**
+#### Credits
 
-While `allowJs: false` would indeed prevent the use of `.js` files in the project, it does not prevent the use of JavaScript syntax in `.svelte` files. In addition, it would force `checkJs: false`, bringing the worst of both worlds: not being able to guarantee the entire codebase is TypeScript, and also having worse typechecking for the existing JavaScript. In addition, there are valid use cases in which a mixed codebase may be relevant.
+Sound files from\
+[gleitz/midi-js-soundfonts: Pre-rendered General MIDI soundfonts that can be used immediately with MIDI.js](https://github.com/gleitz/midi-js-soundfonts)
 
-**Why is HMR not preserving my local component state?**
+Inspired by\
+[rayo3/pitch-training: A website designed for perfect pitch training.](https://github.com/rayo3/pitch-training)\
+[Perfect Pitch Test Online | Ear Training Practice](https://perfectpitch.training/en/)
 
-HMR state preservation comes with a number of gotchas! It has been disabled by default in both `svelte-hmr` and `@sveltejs/vite-plugin-svelte` due to its often surprising behavior. You can read the details [here](https://github.com/rixo/svelte-hmr#svelte-hmr).
-
-If you have state that's important to retain within a component, consider creating an external store which would not be replaced by HMR.
-
-```ts
-// store.ts
-// An extremely simple external store
-import { writable } from 'svelte/store'
-export default writable(0)
-```
+Other interesting stuff\
+[Alternative Music Notation | Dodeka](https://www.dodekamusic.com/learn/alternative-music-notation/) 
+[Color Piano—Learn to play songs on the piano!](https://galactic.ink/piano/)
